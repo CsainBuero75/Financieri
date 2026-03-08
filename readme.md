@@ -1,6 +1,9 @@
 # Financieri
 **Open-source educational web game about Finances**
 
+### TO DO:
+Add English translation, now only slovak language is supported.
+
 ---
 
 ## Description:
@@ -56,6 +59,7 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 * Any contributions are welcomed!
 * Check contributing file thingy (when I create it :p)
 * If you want to report issues, please share screenshots from browser console and server!
+
 
 
 
