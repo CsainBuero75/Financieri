@@ -1,1 +1,3 @@
-Source code of a game called Financieri!
+Open-source educational web game about Finances!
+
+Game uses data from our real world.
