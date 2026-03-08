@@ -12,7 +12,7 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 ### Kinds of savings, investments and insurances?
 * II. Pillar and III. Pillar, data from [Sociálna poisťovňa](https://www.socpoist.sk/socialne-poistenie/platenie-poistneho/sporenie-v-ii-pilieri/zakladne-informacie-ii-pilier), [II. Pillar - NN Slovensko](https://www.nn.sk/druhy-pilier/) and [III. Pillar - NN Slovesnko](https://www.nn.sk/treti-pilier/)
 * Saving account, data from multiple slovak banks.
-* Fixed deposit, data from [Národná banka Slovenska ](https://nbs.sk/)
+* Fixed deposit and inflation rates, data from [Národná banka Slovenska ](https://nbs.sk/)
 * Goverment bonds (Slovak), data from [Dlhopisy pre ľudí](https://dlhopisypreludi.ardal.sk/)
 * Stocks, index funds, commodities, data from [Macrotrends](www.macrotrends.net)
 * Life insurance from Generali.sk
@@ -34,5 +34,6 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 ## Interested in contributing?
 * Any contributions are welcomed!
 * Check contributing file thingy (when I create it :p)
+
 
 
