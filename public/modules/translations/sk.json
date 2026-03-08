@@ -1,0 +1,10 @@
+{
+    "inGame": {
+        "year": "Rok {currentYear} z {endYear}",
+        "month": "Mesiac:",
+        "inflation": "Inflácia: {inflation}%",
+        "saving_account": {
+            "interest": "Úrok: {interest}% p.a."
+        }
+    }
+}

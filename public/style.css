@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+
+:root {
+    --background-color: #2c3f2c;
+    --button-color: #445f44;
+    --hover-button-color: #364e36;
+    --text-color: rgb(255, 255, 255)
+}
+
+@layer components {
+    .no-spinner {
+        appearance: textfield;
+    }
+
+    .no-spinner::-webkit-outer-spin-button,
+    .no-spinner::-webkit-inner-spin-button {
+        appearance: none;
+        margin: 0;
+    }
+}

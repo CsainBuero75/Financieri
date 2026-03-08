@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="output.css" rel="stylesheet">
+    <title>Financieri</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body class="bg-[#2c3f2c] text-white">
+    <!--Main menu, Join and in-room-->
+    <div id="room" class="mt-5 w-3/4" >
+        <h1 class="lg:text-7xl md:text-3xl sm:text-xl ml-2">Financieri</h1>
+        <h6 class="version ml-2">v0.2</h6>
+        <!--Main menu-->
+        <div id="main_menu"
+            class="mt-15 lg:*:text-4xl md:text-2xl sm:text-xl *:bg-[#445f44] *:hover:cursor-pointer *:mb-4 *:ml-10 *:p-4 *:hover:bg-[#374f37]">
+            <button id="join_room_button">Pripojiť
+                sa</button> <br> <!--onclick="joinRoomMenu()"-->
+            <button id="host_room_button">Výtvoriť
+                Miestnosť</button> <br> <!--onclick="createRoomMenu()"-->
+            <button id="credits_button">Titulky</button>
+        </div>
+
+        <!--Join room menu-->
+        <div id="join_menu" hidden class="mt-15">
+            <input type="text" id="join_code"
+                class="text-4xl bg-[#445f44] hover:cursor-pointer mb-4 ml-10 p-4 hover:bg-[#374f37]"
+                placeholder="Kód miestnosti">
+            <br> <input type="text" id="join_username"
+                class="text-4xl bg-[#445f44] hover:cursor-pointer mb-4 ml-10 p-4 hover:bg-[#374f37]" maxlength="16" placeholder="Meno">
+            <br> <button id="join_room"
+                class="text-4xl bg-[#445f44] hover:cursor-pointer mb-4 ml-10 p-4 hover:bg-[#374f37]">Pripojíť
+                sa</button>
+            <br> <button
+                class="returnButton text-4xl bg-[#445f44] hover:cursor-pointer mb-4 ml-10 p-4 hover:bg-[#374f37]">Späť</button>
+        </div>
+
+        <!--Screen in lobby, both for host and players-->
+        <!--HOST IS NOT A PLAYER!-->
+        <div id="room_menu" hidden class="mt-15 size-1/2 ml-4">
+            <p id="room_code" class="text-2xl text-center w-3/4 bg-[#445f44]">Kód: {room_code}</p>
+
+            <div class="w-3/4 h-4/5 min-h-32 bg-[#445f44]">
+                <p class="text-2xl text-center">Zoznam hráčov:</p>
+                <div id="playerlist"
+                    class="grid grid-cols-3 *:bg-[#374f37] *:text-2xl *:hover:bg-black *:text-center *:hover:cursor-pointer content-center *:break-all">
+                    <!--List of players in the room-->
+                </div>
+            </div>
+
+            <br>
+            <!--Host options for the game-->
+            <div id="host_room_menu" hidden class="w-3/4 h-4/5">
+                <div class="bg-[#445f44]">
+                    <p class="text-2xl text-center">Polročné sporenie:</p>
+                    <div
+                        class="flex *:bg-[#374f37] *:ml-1 *:mr-1 content-center *:flex-1 *:flex *:items-center *:justify-around *:[&>input]:mr-2 *:[&>input]:checked:bg-[#ffffff] *:[&>input]:not-checked:bg-[#374f37] *:[&>label]:text-xl *:[&>input]:cursor-pointer">
+                        <!--flex justify-start *:bg-[#374f37] *:text-xl *:ml-3 *:mr-1 *:pl-1 *:pr-1 *:flex-1-->
+                        <span>
+                            <input type="radio" id="money_500" name="money" value="500">
+                            <label for="money_500">500€</label>
+                        </span>
+
+                        <span>
+                            <input type="radio" id="money_1K" name="money" value="1000" checked>
+                            <label for="money_1K">1000€</label>
+                        </span>
+
+                        <span>
+                            <input type="radio" id="money_1.5K" name="money" value="1500">
+                            <label for="money_1.5K">1500€</label>
+                        </span>
+
+                        <span>
+                            <input type="radio" id="money_2K" name="money" value="2000">
+                            <label for="money_2K">2000€</label>
+                        </span>
+                    </div>
+                    <br>
+
+                    <p class="text-2xl text-center">Počet rokov:</p>
+                    <div
+                        class="flex *:bg-[#374f37] *:ml-1 *:mr-1 content-center *:flex-1 *:flex *:items-center *:justify-around *:[&>input]:mr-2 *:[&>input]:checked:bg-[#ffffff] *:[&>input]:not-checked:bg-[#374f37] *:[&>label]:text-xl *:[&>input]:cursor-pointer">
+                        <span>
+                            <input type="radio" id="playtime_5" name="playtime" value="5">
+                            <label for="playtime_5">5 rokov</label>
+                        </span>
+
+                        <span>
+                            <input type="radio" id="playtime_10" name="playtime" value="10">
+                            <label for="playtime_10">10 rokov</label>
+                        </span>
+
+                        <span>
+                            <input type="radio" id="playtime_15" name="playtime" value="15" checked>
+                            <label for="playtime_15">15 rokov</label>
+                        </span>
+
+                        <span>
+                            <input type="radio" id="playtime_20" name="playtime" value="20">
+                            <label for="playtime_20">20 rokov</label>
+                        </span>
+                    </div>
+                    <br>
+                </div>
+                <br>
+                <button id="start_game"
+                    class="text-2xl bg-[#445f44] hover:cursor-pointer mb-4 p-4 hover:bg-[#374f37]">Začať hru</button>
+            </div>
+            <!--Player options for the game-->
+            <div id="player_room_menu">
+                <br> <button
+                    class="returnButton text-xl bg-[#445f44] hover:cursor-pointer mb-4 ml-10 p-4 hover:bg-[#374f37]">Odísť</button>
+            </div>
+        </div>
+    </div>
+
+    <!--Loading Game-->
+    <div id="loading" hidden>
+        <h1>Loading game...</h1>
+    </div>
+
+    <!--In-game-->
+    <div id="in-game" hidden>
+        <div class="float-left h-full w-1/6 pt-24 *:ml-3 *:mr-3">
+            <p id="year" class="text-xl">Rok {currentYear}/{finalYear}</p>
+            <p id="net_worth" class="text-2xl">Čísta hodnota:{networth}€</p>
+
+            <span>
+                <label for="month">Mesiac:</label>
+                <progress id="month" value="0" max="12">0/12</progress>
+            </span>
+
+            <p id="inflation">Inflácia: {inflation}</p>
+        </div>
+
+        <br>
+
+        <div class="flex_container_main flex space-x-2 flex-1">
+            <div
+                class="flex space-x-1 *:pl-5 *:[&>header]:text-center *:[&>header]:text-xl *:[&>header]:pb-3 *:mb-3 *:w-md *:flex-1 *:bg-white h-1/4 text-black">
+                <!-- Pillars -->
+                <div class="pillar" id="second_pillar">
+                    <header>II. Pilier</header>
+                    <p class="saved text-center text-xl">{saved}€</p>
+                    <div class="input_field mt-2">
+                        <button class="deposit float-left border-2 p-2 ml-1">Vložiť</button>
+                        <div class="float-right border-2 mr-6 pr-2">
+                            <button class="max pl-2 pr-2">MAX</button>
+                            <input type="number" name="class" class="count border-0 text-right pr-0 no-spinner"
+                                placeholder="10" min="0">
+                            <span class="ml-0">€</span>
+                        </div>
+                    </div>
+                    <form class="mt-20">
+                        <label for="switch">Zmeniť stratégiu:</label>
+                        <select name="switch" class="switch text-center"> <!--onChange="dieFunkcia()"-->
+                            <option value="garancia">Garancia | +1.84% p.a.</option>
+                            <option value="bezpecie">Bezpečie | +4.14% p.a.</option>
+                            <option value="zisk">Zisk | +5.02% p.a.</option>
+                            <option value="volativita">Volativita | +10.54% p.a</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="pillar" id="third_pillar">
+                    <header>III. Pilier</header>
+                    <div class="unestablished" hidden>
+                        <h3>Nezriadené!</h3>
+                        <p>Po zriadení, zrušiť sa nedá!</p>
+                        <button class="establish">Zriadiť</button>
+                    </div>
+                    <div class="established">
+                        <button class="cancel border-2 border-black mt-3 px-3 py-1 float-left">Zrušiť pilier</button>
+                        <p class="saved text-center text-xl">{saved}€</p>
+                        <br>
+                        <div class="input_field mt-2">
+                            <button class="deposit float-left border-2 p-2 ml-1">Vložiť</button>
+                            <div class="float-right border-2 mr-6 pr-2">
+                                <button class="max pl-2 pr-2">MAX</button>
+                                <input type="number" name="class" class="count border-0 text-right pr-0 no-spinner"
+                                    placeholder="10" min="0">
+                                <span class="ml-0">€</span>
+                            </div>
+                        </div>
+                        <p class="monthly_contribution py-1">Mesačný príspevok zamestnaváteľa: {contribution}€</p>
+                        <form class="">
+                            <label for="switch">Zmeniť stratégiu:</label>
+                            <select name="switch" class="switch text-center"> <!--onChange="dieFunkcia()"-->
+                                <option value="garancia">Garancia | +1.84% p.a.</option>
+                                <option value="bezpecie">Bezpečie | +4.14% p.a.</option>
+                                <option value="zisk">Zisk | +5.02% p.a.</option>
+                                <option value="volativita">Volativita | +10.54% p.a</option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div id="saving_account">
+                <p>Sporiací účet</p>
+                <p class="saved">Nasporené: {saved}</p>
+                <p class="interest">Úrok: {interest}</p>
+                <div class="input_field">
+                    <button class="deposit">Vložiť</button>
+                    <button class="max">MAX</button>
+                    <input type="number" name="class" class="count" placeholder="10€">
+                    <span>€</span>
+                    <button class="withdrawal">Výbrať</button>
+                </div>
+            </div>
+
+            <div id="fixed_deposit">
+                <p>Terminovaný vklad</p>
+                <div class="buy">
+                    <input type="radio" class="deposit_6months" name="deposit" value="6">
+                    <label for="deposit_6months">6 mesiacov</label>
+                    <input type="radio" class="deposit_1year" name="deposit" value="12" checked>
+                    <label for="deposit_1year">12 mesiacov</label>
+                    <input type="radio" class="deposit_2years" name="deposit" value="24">
+                    <label for="deposit_2years">24 mesiacov</label>
+
+                    <div class="input_field">
+                        <button class="max">MAX</button>
+                        <input type="number" name="class" class="count" placeholder="10€">
+                        <span>€</span>
+                        <button class="deposit">Vložiť</button>
+                    </div>
+                    <button class="cancel">Zrušiť</button>
+                </div>
+                <div class="show" hidden>
+                    <!-- List of player's fixed deposits -->
+
+                    <div class="fixed_deposit" id="{id_of_deposit}">
+                        <label for="deposit">{value_of_deposit}</label>
+                        <progress class="maturity_bar" class="deposit" value="0" max="100"></progress>
+                        <span class="timer">{months_since_start}/6</span>
+                        <span class="interest">{interest}% p.m.</span>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="h-1/4">
+                <p>Akcie jednotlivých firiem</p>
+                <div id="individual_stocks"
+                    class="flex w-full h-full *:bg-red-500 *:w-1/6 *:flex-1 *:h-full justify-around *:[&>.name]:text-2xl *:[&>.name]:text-center *:*:text-center space-x-2">
+                    <div class="stocks" id="stocks1">
+                        <p class="name">{name}</p>
+                        <p class="price">{price}€ / akcia</p>
+                        <p class="amount">{shares} akcií</p>
+
+                        <div class="profit_balance">
+                            <p class="profit">Profit: {profit}</p>
+                            <p class="balance" hidden>Zostatok: {balance}</p>
+                            <button class="button">Profit/Balance</button>
+                        </div>
+
+                        <div class="chart_div">
+                            <p class="change">{change}%</p>
+                            <canvas class="chart"></canvas>
+                        </div>
+
+                        <div class="input_field">
+                            <input type="radio" class="count option_1" name="option" value="1">
+                            <label for="option_1">1</label>
+                            <input type="radio" class="count option_5" name="option" value="5">
+                            <label for="option_5">5</label>
+                            <input type="radio" class="count option_20" name="option" value="20">
+                            <label for="option_20">20</label>
+                            <input type="radio" class="count option_max" name="option" value="max">
+                            <label for="option_max">MAX</label>
+
+                            <br>
+
+                            <button class="deposit">Kúpiť</button>
+                            <button class="withdrawal">Predať</button>
+                        </div>
+                    </div>
+                    <div class="stocks" id="stocks2">
+                        <p class="name">{name}</p>
+                        <p class="price">{price}€ / akcia</p>
+                        <p class="amount">{shares} akcií</p>
+
+                        <div class="profit_balance">
+                            <p class="profit">Profit: {profit}</p>
+                            <p class="balance" hidden>Zostatok: {balance}</p>
+                            <button class="button">Profit/Balance</button>
+                        </div>
+
+                        <div class="chart_div">
+                            <p class="change">{change}%</p>
+                            <canvas class="chart"></canvas>
+                        </div>
+
+                        <div class="input_field">
+                            <input type="radio" class="count option_1" name="option" value="1">
+                            <label for="option_1">1</label>
+                            <input type="radio" class="count option_5" name="option" value="5">
+                            <label for="option_5">5</label>
+                            <input type="radio" class="count option_20" name="option" value="20">
+                            <label for="option_20">20</label>
+                            <input type="radio" class="count option_max" name="option" value="max">
+                            <label for="option_max">MAX</label>
+
+                            <br>
+
+                            <button class="deposit">Kúpiť</button>
+                            <button class="withdrawal">Predať</button>
+                        </div>
+                    </div>
+                    <div class="stocks" id="stocks3">
+                        <p class="name">{name}</p>
+                        <p class="price">{price}€ / akcia</p>
+                        <p class="amount">{shares} akcií</p>
+
+                        <div class="profit_balance">
+                            <p class="profit">Profit: {profit}</p>
+                            <p class="balance" hidden>Zostatok: {balance}</p>
+                            <button class="button">Profit/Balance</button>
+                        </div>
+
+                        <div class="chart_div">
+                            <p class="change">{change}%</p>
+                            <canvas class="chart"></canvas>
+                        </div>
+
+                        <div class="input_field">
+                            <input type="radio" class="count option_1" name="option" value="1">
+                            <label for="option_1">1</label>
+                            <input type="radio" class="count option_5" name="option" value="5">
+                            <label for="option_5">5</label>
+                            <input type="radio" class="count option_20" name="option" value="20">
+                            <label for="option_20">20</label>
+                            <input type="radio" class="count option_max" name="option" value="max">
+                            <label for="option_max">MAX</label>
+
+                            <br>
+
+                            <button class="deposit">Kúpiť</button>
+                            <button class="withdrawal">Predať</button>
+                        </div>
+                    </div>
+                    <div class="stocks" id="stocks4">
+                        <p class="name">{name}</p>
+                        <p class="price">{price}€ / akcia</p>
+                        <p class="amount">{shares} akcií</p>
+
+                        <div class="profit_balance">
+                            <p class="profit">Profit: {profit}</p>
+                            <p class="balance" hidden>Zostatok: {balance}</p>
+                            <button class="button">Profit/Balance</button>
+                        </div>
+
+                        <div class="chart_div">
+                            <p class="change">{change}%</p>
+                            <canvas class="chart"></canvas>
+                        </div>
+
+                        <div class="input_field">
+                            <input type="radio" class="count option_1" name="option" value="1">
+                            <label for="option_1">1</label>
+                            <input type="radio" class="count option_5" name="option" value="5">
+                            <label for="option_5">5</label>
+                            <input type="radio" class="count option_20" name="option" value="20">
+                            <label for="option_20">20</label>
+                            <input type="radio" class="count option_max" name="option" value="max">
+                            <label for="option_max">MAX</label>
+
+                            <br>
+
+                            <button class="deposit">Kúpiť</button>
+                            <button class="withdrawal">Predať</button>
+                        </div>
+                    </div>
+                    <div class="stocks" id="stocks5">
+                        <p class="name">{name}</p>
+                        <p class="price">{price}€ / akcia</p>
+                        <p class="amount">{shares} akcií</p>
+
+                        <div class="profit_balance">
+                            <p class="profit">Profit: {profit}</p>
+                            <p class="balance" hidden>Zostatok: {balance}</p>
+                            <button class="button">Profit/Balance</button>
+                        </div>
+
+                        <div class="chart_div">
+                            <p class="change">{change}%</p>
+                            <canvas class="chart"></canvas>
+                        </div>
+
+                        <div class="input_field">
+                            <input type="radio" class="count option_1" name="option" value="1">
+                            <label for="option_1">1</label>
+                            <input type="radio" class="count option_5" name="option" value="5">
+                            <label for="option_5">5</label>
+                            <input type="radio" class="count option_20" name="option" value="20">
+                            <label for="option_20">20</label>
+                            <input type="radio" class="count option_max" name="option" value="max">
+                            <label for="option_max">MAX</label>
+
+                            <br>
+
+                            <button class="deposit">Kúpiť</button>
+                            <button class="withdrawal">Predať</button>
+                        </div>
+                    </div>
+                    <div class="stocks" id="stocks6">
+                        <p class="name">{name}</p>
+                        <p class="price">{price}€ / akcia</p>
+                        <p class="amount">{shares} akcií</p>
+
+                        <div class="profit_balance">
+                            <p class="profit">Profit: {profit}</p>
+                            <p class="balance" hidden>Zostatok: {balance}</p>
+                            <button class="button">Profit/Balance</button>
+                        </div>
+
+                        <div class="chart_div">
+                            <p class="change">{change}%</p>
+                            <canvas class="chart"></canvas>
+                        </div>
+
+                        <div class="input_field">
+                            <input type="radio" class="count option_1" name="option" value="1">
+                            <label for="option_1">1</label>
+                            <input type="radio" class="count option_5" name="option" value="5">
+                            <label for="option_5">5</label>
+                            <input type="radio" class="count option_20" name="option" value="20">
+                            <label for="option_20">20</label>
+                            <input type="radio" class="count option_max" name="option" value="max">
+                            <label for="option_max">MAX</label>
+
+                            <br>
+
+                            <button class="deposit">Kúpiť</button>
+                            <button class="withdrawal">Predať</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="h-1/4">
+                <p>Indexový fond</p>
+                <div id="indexfund">
+                    <div id="indexfund1" class="bg-red-400 *:h-full *:[&>.profit]:text-2xl *:text-center">
+                        <div class="profit_balance">
+                            <p class="profit">Profit: {profit}</p>
+                            <p class="balance" hidden>Zostatok: {balance}</p>
+                            <button class="button">Profit/Balance</button>
+                        </div>
+
+                        <div style="width: 240px; height: 120px;">
+                            <p class="change">{change}%</p>
+                            <canvas class="chart"></canvas>
+
+                        </div>
+
+                        <div class="input_field">
+                            <button class="deposit">Kúpiť</button>
+                            <button class="max">MAX</button>
+                            <input type="number" name="class" class="count" placeholder="10€">
+                            <span>€</span>
+                            <button class="withdrawal">Predať</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="h-1/4">
+                <p>Komodity</p>
+                <div id="commodity"
+                    class="bg-yellow-600 flex w-full h-full *:w-1/6 *:flex-1 *:h-full justify-around *:[&>.name]:text-2xl *:[&>.name]:text-center *:*:text-center space-x-2">
+                    <div id="commodity1">
+                        <p class="name">{name}</p>
+                        <p class="price">{price}€</p>
+                        <p class="amount">{shares}</p>
+
+                        <div class="profit_balance">
+                            <p class="profit">Profit: {profit}</p>
+                            <p class="balance" hidden>Zostatok: {balance}</p>
+                            <button class="button">Profit/Balance</button>
+                        </div>
+
+                        <div style="width: 240px; height: 120px;">
+                            <p class="change">{change}%</p>
+                            <canvas class="chart"></canvas>
+                        </div>
+
+                        <div class="input_field">
+                            <input type="radio" class="count option_1" name="option" value="1">
+                            <label for="option_1">1</label>
+                            <input type="radio" class="count option_5" name="option" value="5">
+                            <label for="option_5">5</label>
+                            <input type="radio" class="count option_20" name="option" value="20">
+                            <label for="option_20">20</label>
+                            <input type="radio" class="count option_max" name="option" value="max">
+                            <label for="option_max">MAX</label>
+
+                            <br>
+
+                            <button class="deposit">Kúpiť</button>
+                            <button class="withdrawal">Predať</button>
+                        </div>
+                    </div>
+                    <div id="commodity2">
+                        <p class="name">{name}</p>
+                        <p class="price">{price}€</p>
+                        <p class="amount">{shares}</p>
+
+                        <div class="profit_balance">
+                            <p class="profit">Profit: {profit}</p>
+                            <p class="balance" hidden>Zostatok: {balance}</p>
+                            <button class="button">Profit/Balance</button>
+                        </div>
+
+                        <div style="width: 240px; height: 120px;">
+                            <canvas class="chart"></canvas>
+                        </div>
+
+                        <div class="input_field">
+                            <input type="radio" class="count option_1" name="option" value="1">
+                            <label for="option_1">1</label>
+                            <input type="radio" class="count option_5" name="option" value="5">
+                            <label for="option_5">5</label>
+                            <input type="radio" class="count option_20" name="option" value="20">
+                            <label for="option_20">20</label>
+                            <input type="radio" class="count option_max" name="option" value="max">
+                            <label for="option_max">MAX</label>
+
+                            <br>
+
+                            <button class="deposit">Kúpiť</button>
+                            <button class="withdrawal">Predať</button>
+                        </div>
+                    </div>
+                    <div id="commodity3">
+                        <p class="name">{name}</p>
+                        <p class="price">{price}€</p>
+                        <p class="amount">{shares}</p>
+
+                        <div class="profit_balance">
+                            <p class="profit">Profit: {profit}</p>
+                            <p class="balance" hidden>Zostatok: {balance}</p>
+                            <button class="button">Profit/Balance</button>
+                        </div>
+
+                        <div style="width: 240px; height: 120px;">
+                            <canvas class="chart"></canvas>
+                        </div>
+
+                        <div class="input_field">
+                            <input type="radio" class="count option_1" name="option" value="1">
+                            <label for="option_1">1</label>
+                            <input type="radio" class="count option_5" name="option" value="5">
+                            <label for="option_5">5</label>
+                            <input type="radio" class="count option_20" name="option" value="20">
+                            <label for="option_20">20</label>
+                            <input type="radio" class="count option_max" name="option" value="max">
+                            <label for="option_max">MAX</label>
+
+                            <br>
+
+                            <button class="deposit">Kúpiť</button>
+                            <button class="withdrawal">Predať</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="goverment_bonds">
+                <p>Štátne dlhopisy</p>
+                <h6>Cena jedného dlhopisu je 1000€</h6>
+                <div class="owned_bonds">
+                    <label for="time" class="count bond_2years">Investor II: 0x</label>
+                    <progress class="timer bond_2years" value="0" max="19"></progress>
+                    <br>
+                    <label for="timer" class="count bond_4years">Patriot II: 0x</label>
+                    <progress class="timer bond_2years" value="0" max="19"></progress>
+                </div>
+
+                <br>
+                <label for="timer">Čas do uzavretia:</label> <!--Changes to "čas do otvorenia"-->
+                <progress class="timer" value="0" max="5"></progress>
+
+                <div class="buy_bonds">
+                    <label>Investor II:</label>
+                    <label for="count">2 roky & 2.7% p.a.</label>
+                    <div class="input_field bond_2years">
+                        <button class="max">MAX</button>
+                        <input type="number" name="count" class="count" placeholder="5ks">
+                        <span>kúsov</span>
+                        <button class="withdrawal">Kupíť</button>
+                    </div>
+
+                    <label>Patriot II:</label>
+                    <label for="count">4 roky & 3% p.a.</label>
+                    <div class="input_field bond_4years">
+                        <button class="max">MAX</button>
+                        <input type="number" name="count" class="count" placeholder="5ks">
+                        <span>kúsov</span>
+                        <button class="withdrawal">Kupíť</button>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div id="insurances">
+                <div id="house_insurance">
+                    <p>Poistenie domu</p>
+                    <div class="unestablished">
+                        <button class="establish">Zriadiť poistenie</button>
+                        <p>Cena: 800€/rok</p>
+                        <p>Zahrňa poistenie:</p>
+                        <ol>
+                            <li>Nehnuteľnosti</li>
+                            <li>Domácnosti</li>
+                            <li>Zodpovednosti</li>
+                        </ol>
+                    </div>
+                    <div class="established" hidden>
+                        <p>Cena: 800€/rok</p>
+                        <button class="cancel">Zrušiť poistenie</button>
+                    </div>
+                </div>
+                <div id="life_insurance">
+                    <p>Životné poistenie</p>
+                    <div class="parent1 insurance">
+                        <p>Poistenie pre otca</p>
+                        <div class="unestablished">
+                            <button class="establish">Zriadiť poistenie</button>
+                            <p>Cena: 720/rok</p>
+                        </div>
+                        <div class="established" hidden>
+                            <p>Cena: 720/rok</p>
+                            <button class="cancel">Zrušiť poistenie</button>
+                        </div>
+                    </div>
+                    <div class="parent2 insurance">
+                        <p>Poistenie pre matku</p>
+                        <div class="unestablished">
+                            <button class="establish">Zriadiť poistenie</button>
+                            <p>Cena: 720/rok</p>
+                        </div>
+                        <div class="established" hidden>
+                            <p>Cena: 720/rok</p>
+                            <button class="cancel">Zrušiť poistenie</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- In-game for host-->
+    <div id="analyticsForHost" hidden>
+
+    </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="script.js"></script>
+
+</html>
