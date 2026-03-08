@@ -25,7 +25,7 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 * Create user on mySQL and give them password to the user.
 * Upload database.sql file to mysql.
 * Create `.env` file from template.env, change address to your private address. Now you can play on LAN or via hamachi. Username and password are creditials to mySQL.
-* Open console/terminal in folder and start server by `node server.js`.
+* Open console/terminal in folder, run `npm install` to download dependencies and start server by `node server.js`.
 * Load website with clicking on address provided to you in the console.
 * Enjoy! (pls create issue, when you find bug/glitch or something you dont think should not happen, provide screenshot from F12 console (browser) and screenshot from server)
 
@@ -34,6 +34,7 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 ## Interested in contributing?
 * Any contributions are welcomed!
 * Check contributing file thingy (when I create it :p)
+
 
 
 
