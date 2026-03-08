@@ -56,12 +56,12 @@ module.exports.Room = class {
             commodity: int
         }
         */
-    ) {
+    ) {
         if (!Table || !Table.startYear || !Table.startMonth || !Table.semiAnnuallySaving || !Table.playtime || !Table.seed) {
             throw new Error(`Some parametres of seed are not defined! ${JSON.stringify(Table)}`)
         }
 
-        this.joinable = false
+        this.Joinable = false
 
         this.Seed.startDate = {
             "year": Table.startYear,
@@ -85,9 +85,9 @@ module.exports.Room = class {
             if (this.Seed.month === 12) {
                 this.Seed.year += 1
                 this.Seed.month = 1
+            } else {
+                this.Seed.month += 1
             }
-
-            this.Seed.month += 1
         }
 
         this.Seed.playtime-- // Decrement the playtime

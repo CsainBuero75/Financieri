@@ -11,7 +11,7 @@
 
 </head>
 
-<body class="bg-[#2c3f2c] text-white">
+<body class="bg-[#1f2c1f] text-white">
     <!--Main menu, Join and in-room-->
     <div id="room" class="mt-5 w-3/4" >
         <h1 class="lg:text-7xl md:text-3xl sm:text-xl ml-2">Financieri</h1>
@@ -126,7 +126,7 @@
     </div>
 
     <!--In-game-->
-    <div id="in-game" hidden>
+    <div id="in-game" hidden class="px-4 pb-6">
         <div class="float-left h-full w-1/6 pt-24 *:ml-3 *:mr-3">
             <p id="year" class="text-xl">Rok {currentYear}/{finalYear}</p>
             <p id="net_worth" class="text-2xl">Čísta hodnota:{networth}€</p>
@@ -137,11 +137,12 @@
             </span>
 
             <p id="inflation">Inflácia: {inflation}</p>
+            <p id="game_status" class="mt-2 text-sm text-[#d2f4d2]">Priprav sa na prvý tick trhu.</p>
         </div>
 
         <br>
 
-        <div class="flex_container_main flex space-x-2 flex-1">
+        <div class="flex_container_main flex space-x-2 flex-1 game-panel">
             <div
                 class="flex space-x-1 *:pl-5 *:[&>header]:text-center *:[&>header]:text-xl *:[&>header]:pb-3 *:mb-3 *:w-md *:flex-1 *:bg-white h-1/4 text-black">
                 <!-- Pillars -->
