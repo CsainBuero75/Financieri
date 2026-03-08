@@ -12,7 +12,7 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 ### Kinds of savings, investments and insurances?
 * II. Pillar and III. Pillar, data from [Sociálna poisťovňa](https://www.socpoist.sk/socialne-poistenie/platenie-poistneho/sporenie-v-ii-pilieri/zakladne-informacie-ii-pilier), [II. Pillar - NN Slovensko](https://www.nn.sk/druhy-pilier/) and [III. Pillar - NN Slovesnko](https://www.nn.sk/treti-pilier/)
 * Saving account, data from multiple slovak banks.
-* Fixed deposit, data from [Národná banka Slovenska ](https://nbs.sk/)
+* Fixed deposit and inflation rates, data from [Národná banka Slovenska ](https://nbs.sk/)
 * Goverment bonds (Slovak), data from [Dlhopisy pre ľudí](https://dlhopisypreludi.ardal.sk/)
 * Stocks, index funds, commodities, data from [Macrotrends](www.macrotrends.net)
 * Life insurance from Generali.sk
@@ -22,8 +22,10 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 
 ## How to play?
 * Instal mysql and node.js
+* Create user on mySQL and give them password to the user.
 * Upload database.sql file to mysql.
-* Open console/terminal in folder and start server by ```node server.js```.
+* Create `.env` file from template.env, change address to your private address. Now you can play on LAN or via hamachi. Username and password are creditials to mySQL.
+* Open console/terminal in folder and start server by `node server.js`.
 * Load website with clicking on address provided to you in the console.
 * Enjoy! (pls create issue, when you find bug/glitch or something you dont think should not happen, provide screenshot from F12 console (browser) and screenshot from server)
 
@@ -32,4 +34,6 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 ## Interested in contributing?
 * Any contributions are welcomed!
 * Check contributing file thingy (when I create it :p)
+
+
 
