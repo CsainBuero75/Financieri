@@ -21,13 +21,15 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 ---
 
 ## How to play?
-* Download the source code.
-* Start server by ```node server.js```.
+* Instal mysql and node.js
+* Upload database.sql file to mysql.
+* Open console/terminal in folder and start server by ```node server.js```.
 * Load website with clicking on address provided to you in the console.
-* Enjoy!
+* Enjoy! (pls create issue, when you find bug/glitch or something you dont think should not happen, provide screenshot from F12 console (browser) and screenshot from server)
 
 --- 
 
 ## Interested in contributing?
 * Any contributions are welcomed!
 * Check contributing file thingy (when I create it :p)
+
