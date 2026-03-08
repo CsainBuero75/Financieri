@@ -21,19 +21,42 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 ---
 
 ## How to play?
-* Instal mysql and node.js
-* Create user on mySQL and give them password to the user.
-* Upload database.sql file to mysql.
-* Create `.env` file from template.env, change address to your private address. Now you can play on LAN or via hamachi. Username and password are creditials to mySQL.
-* Open console/terminal in folder, run `npm install` to download dependencies and start server by `node server.js`.
-* Load website with clicking on address provided to you in the console.
-* Enjoy! (pls create issue, when you find bug/glitch or something you dont think should not happen, provide screenshot from F12 console (browser) and screenshot from server)
+(Tested only on Debian 13, so you might need to find your way)
+
+1. Instal mySQL and Node.js
+2. Create user with password on mySQL. Replace <username>, <password>, <database> and <path/to/database> with your strings.
+   ```
+   mysql -u root -p
+   CREATE DATABASE <database>;
+   CREATE USER '<username>'@'localhost' IDENTIFIED BY '<password>';
+   GRANT ALL PRIVILEGES ON <database>.* TO '<username>'@'localhost';
+   exit
+   mysql -u root -p <database> < <path/to/database>.sql
+   ```
+3. Create `.env` file from template.env, change address to your private address. Now you can play on LAN or via hamachi. USERNAME and PASSWORD are creditials to mySQL and DATABASE is name of database, which has database data.
+4. Create self-signed certificate for HTTPS connection. (Can be skipped, altough, you will need to change REDIRECTUNSECURE variable in .env to "false").
+   ```
+   sudo apt install openssl
+   openssl genrsa -out private.key 2048
+   openssl req -new -key private.key -out example.csr
+   openssl x509 -req -days 365 -in example.csr -signkey private.key -out certificate.crt
+   ```
+5. Move private.key and certificate.crt into /internal_modules/webserver_modules/
+6. Open terminal in folder (Financieri-main, or whatever you called it)
+   ```
+   npm install
+   node server.js
+   ```
+7. You can load the website by clicking on the address provided to you in the terminal.
+8. Enjoy!
 
 --- 
 
 ## Interested in contributing?
 * Any contributions are welcomed!
 * Check contributing file thingy (when I create it :p)
+* If you want to report issues, please share screenshots from browser console and server!
+
 
 
 
