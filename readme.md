@@ -28,14 +28,14 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 (Tested only on Debian 13, so you might need to find your way)
 
 1. Instal mySQL and Node.js
-2. Create user with password on mySQL. Replace <username>, <password>, <database> and <path/to/database> with your strings.
+2. Create user with password on mySQL. Replace {username}, {password}, {database} and {path/to/database} with your strings.
    ```
    mysql -u root -p
-   CREATE DATABASE <database>;
-   CREATE USER '<username>'@'localhost' IDENTIFIED BY '<password>';
-   GRANT ALL PRIVILEGES ON <database>.* TO '<username>'@'localhost';
+   CREATE DATABASE {database};
+   CREATE USER '{username}'@'localhost' IDENTIFIED BY '{password}';
+   GRANT ALL PRIVILEGES ON {database}.* TO '{username}'@'localhost';
    exit
-   mysql -u root -p <database> < <path/to/database>.sql
+   mysql -u root -p {database} { {path/to/database}.sql
    ```
 3. Create `.env` file from template.env, change address to your private address. Now you can play on LAN or via hamachi. USERNAME and PASSWORD are creditials to mySQL and DATABASE is name of database, which has database data.
 4. Create self-signed certificate for HTTPS connection. (Can be skipped, altough, you will need to change REDIRECTUNSECURE variable in .env to "false").
@@ -61,6 +61,7 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 * Any contributions are welcomed!
 * Check contributing file thingy (when I create it :p)
 * If you want to report issues, please share screenshots from browser console and server!
+
 
 
 
