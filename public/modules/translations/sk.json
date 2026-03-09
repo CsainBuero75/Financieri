@@ -2,6 +2,7 @@
     "inGame": {
         "year": "Rok {currentYear} z {endYear}",
         "month": "Mesiac:",
+        "netWorth": "Čísta hodnota:{net_worth}€",
         "inflation": "Inflácia: {inflation}%",
         "saving_account": {
             "interest": "Úrok: {interest}% p.a."

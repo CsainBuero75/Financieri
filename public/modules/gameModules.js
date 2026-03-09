@@ -1,7 +1,10 @@
 const yearLabel = document.getElementById("year")
 const monthProgressBar = document.getElementById("month")
 const inflationLabel = document.getElementById("inflation")
-import {createChart} from "./roomModules.js"
+const net_worth = document.getElementById("net_worth")
+const goverment_bonds = document.getElementById("goverment_bonds")
+const closing_timer = goverment_bonds.getElementsByClassName("closing")
+import { createChart } from "./roomModules.js"
 
 let PastDataObject = {}
 
@@ -15,33 +18,29 @@ export function tick(values, chartsList, language, localGameData) {
             if (Table === "others" || Table === "fixed_deposit") continue
             const name = `${Table}${Object.keys(values[Table]).indexOf(Key) + 1}`
             const chart = name in chartsList && chartsList[name] || createChart(document.getElementById(name).getElementsByClassName("chart")[0], name)
+            const value = values[Table][Key]
 
             if (!chart) {
-                console.log(name,chart)
                 throw new Error(`Unable to find chart ${name}`)
             }
-
             if (!(name in PastDataObject)) PastDataObject[name] = []
 
-            let highest = 0
-            for (const i of Object.keys(PastDataObject[name])) {
-                if (Number(i) > highest) highest = i
-            }
-            PastDataObject[name].push(values[Table][Key])
-            if (PastDataObject[name].length > 12) {
-                PastDataObject[name].shift()
-            }
+            const lastValue = PastDataObject[name].at(-1) || 1
+            PastDataObject[name].push(value);
+            if (PastDataObject[name].length > 12) PastDataObject[name].shift();
 
-            chart.data.datasets[0].data = PastDataObject[name]
-            chart.data.labels = [...Array(name in PastDataObject && PastDataObject[name].length || 0).keys()]
-            chart.update()
+            chart.data.datasets[0].data = PastDataObject[name];
+            chart.data.labels = [...Array(name in PastDataObject && PastDataObject[name].length || 0).keys()];
+            chart.update();
 
-            const Div = document.getElementById(name)
-            Array.from(Div.getElementsByClassName("name")).forEach(element => element.textContent = `${Key}`)
-            Array.from(Div.getElementsByClassName("price")).forEach(element => element.textContent = `${values[Table][Key]}€`)
+            const Div = document.getElementById(name);
+            Array.from(Div.getElementsByClassName("name")).forEach(element => element.textContent = `${Key}`);
+            Array.from(Div.getElementsByClassName("price")).forEach(element => element.textContent = `${value}€`);
+            Array.from(Div.getElementsByClassName("change")).forEach(element => element.textContent = `${Math.round((value / lastValue) * 100) - 100}%`);
         }
     }
 
+    if (!values["others"]["inflation"]) throw new Error(`Inflation rate doesn't exist!`)
     inflationLabel.textContent = language.inGame.inflation.replace("{inflation}", values["others"]["inflation"])
     document.getElementById("saving_account").getElementsByClassName("interest")[0].textContent = language.inGame.saving_account.interest.replace("{interest}", values["others"]["saving_account"])
 
@@ -52,8 +51,14 @@ export function tick(values, chartsList, language, localGameData) {
     } else {
         monthProgressBar.value++
     }
+
+    net_worth.textContent = language.inGame.netWorth.replace("{net_worth}", 0)
 }
 
-export function event() {
+export function event(name, description, options) {
     // random in-game events
+}
+
+export function respond(data) {
+    // When player sends request to buy something and server responds
 }

@@ -3,6 +3,7 @@
 
 ### TO DO:
 Add English translation, now only slovak language is supported.
+Split HTML into templates, because now the code is super long.
 
 ---
 

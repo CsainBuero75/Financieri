@@ -14,7 +14,7 @@ module.exports.Room = class {
             },
 
             // Changes based on the tick function in game_modules
-            "sas": undefined, // Semi Annually Savings 
+            "semiAnnuallySaving": undefined, // Semi Annually Savings 
             "playtime": undefined, // How many years untill end of the game
             "year": null, // Adds 1 everytime when month becomes 13 and resets month to 1
             "month": null, // Adds 1 every tick

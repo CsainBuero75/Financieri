@@ -5,16 +5,8 @@ const { sendRequest } = require("../requestSender.js");
 module.exports = {
     run(websocket, request) {
         const [success, roomCode] = createRoom(websocket)
+        
         // Responds to the client with succes and code to the room or just fail.
-
-        /*sendRequest(websocket, {
-            "type": request.type,
-            "success": success,
-            "properties": {
-                "roomCode": (roomCode || "")
-            }
-        })*/
-
         if (success) {
             sendRequest(websocket, {
                 "type": "room",

@@ -126,6 +126,7 @@ function deleteRoom(room) {
     if (!room || !(room instanceof Room)) {
         throw new Error(`Unable to find room with code '${roomCode || "undefined"}'!`)
     }
+    if (!room.Joinable) return true
 
     room.getPlayersWebsockets.forEach(player => {
         try {
