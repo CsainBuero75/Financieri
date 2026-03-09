@@ -47,6 +47,7 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 5. Move private.key and certificate.crt into /internal_modules/webserver_modules/
 6. Open terminal in folder (Financieri-main, or whatever you called it)
    ```
+   npm init
    npm install
    node server.js
    ```
@@ -59,6 +60,7 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 * Any contributions are welcomed!
 * Check contributing file thingy (when I create it :p)
 * If you want to report issues, please share screenshots from browser console and server!
+
 
 
 
