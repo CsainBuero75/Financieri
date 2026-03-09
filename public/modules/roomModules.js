@@ -98,7 +98,7 @@ export async function requestRoomCreation(controller) {
         "type": "room",
         "subtype": "create"
     })
-    controller.setHost(true)
+    controller.isHost = true
 };
 
 // S>C | Joining into room
@@ -148,7 +148,7 @@ export async function prepareForJoin(controller) {
     await controller.waitForConnection();
     if (!controller.websocket) return
 
-    controller.setHost(false);
+    controller.isHost = false;
     showJoinMenu();
 };
 // - | Send server a request to join room
@@ -197,7 +197,6 @@ export function kickedFromRoom(inGame = false) {
 export function initialize(data, language, isHost = false) {
     if (!data) throw new Error(`Data for initialization were not defined!`)
     if (!language) throw new Error(`Language is not defined!`)
-    console.log(data)
 
     // List of canvases, where the charts will be drawn
     let canvas = {

@@ -31,7 +31,7 @@ function createRoom(websocket) {
         })
         // Code generator, needs an update
         //                          When you make 3 rooms and the first one deletes, the next roomCode will be the same as already used roomCode
-        const roomCode = (Object.keys(list).length + 30 + Math.round(Math.random() * 10000)).toString(36).padStart(7, "0") 
+        const roomCode = (Math.round(Math.random() * (9999999 - Object.keys(list).length))).toString(36).padStart(7, "0")
 
         const newRoom = new Room(roomCode, websocket)
         rooms.push(newRoom)

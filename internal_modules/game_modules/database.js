@@ -2,19 +2,20 @@ const mysql = require("mysql2/promise")
 const { format } = require("../formatter.js")
 
 module.exports.DatabaseObject = class {
-    constructor(user, password) {
+    constructor(database, user, password) {
         this.pool = null
         this.user = user
         this.password = password
+        this.database = database
     }
 
     connect() {
         try {
             const pool = mysql.createPool({
-                host: 'localhost',
+                host: "localhost",
                 user: this.user,
                 password: this.password,
-                database: 'Financieri',
+                database: this.database,
                 waitForConnections: true,
                 queueLimit: 0
             });
@@ -51,7 +52,7 @@ module.exports.DatabaseObject = class {
                 "sender": "SERVER",
                 "protocol": "SQL",
                 "errorCode": "500",
-                "message": "Error while trying to query to database!",
+                "message": `Error while trying to query to database! Query: ${SQLrequest}`,
                 "error": error
             })
         }

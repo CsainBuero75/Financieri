@@ -4,11 +4,11 @@ const fs = require("fs");
 const express = require("express");
 const path = require('path');
 
-require('dotenv').config({ path: '../.env', quiet:true })
+require('dotenv').config({ path: __dirname + '../.env', quiet: true })
 
 const EncryptionOptions = {
-    key: fs.readFileSync(__dirname + "/webserver_modules/private.key"),
-    cert: fs.readFileSync(__dirname + "/webserver_modules/certificate.crt"),
+    key: fs.readFileSync(path.resolve(__dirname, "../private.key")),
+    cert: fs.readFileSync(path.resolve(__dirname, "../certificate.crt")),
 
     // Recommended security settings
     minVersion: 'TLSv1.2',
@@ -84,11 +84,13 @@ module.exports.createWebServers = function (socketServer) {
         }));
     })*/
 
-    const secureServer = createSecuredServer(app, EncryptionOptions)
-    handleUpgrade(secureServer, socketServer)
+    if (JSON.parse(process.env.WEBSERVER_RUNENCRYPTED)) {
+        const secureServer = createSecuredServer(app, EncryptionOptions)
+        handleUpgrade(secureServer, socketServer)
+    }
 
-    // Redirect all HTTP trafic to HTTPS?
-    if (process.env.REDIRECTUNSECURE) {
+    // Redirect all HTTP trafic to HTTPS
+    if (JSON.parse(process.env.WEBSERVER_REDIRECTUNSECURED) && !JSON.parse(process.env.WEBSERVER_RUNENCRYPTED)) {
         const redirectApp = express();
         redirectApp.all("", (request, respond) => {
             format({
@@ -97,7 +99,7 @@ module.exports.createWebServers = function (socketServer) {
                 "errorCode": "101",
                 "message": "Upgrading to HTTPS.",
             })
-            respond.redirect("https://" + process.env.ADDRESS + ":" + process.env.PORT_HTTPS)
+            respond.redirect("https://" + process.env.WEBSERVER_ADDRESS + ":" + process.env.WEBSERVER_HTTPS)
         })
         const unsecureServer = createUnsecuredServer(redirectApp)
     } else {

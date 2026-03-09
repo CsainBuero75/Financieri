@@ -1,5 +1,6 @@
 const { sendRequestToPlayers } = require("../websocket_modules/roomManager.js")
 const { format } = require("../formatter.js")
+require('dotenv').config({ path: '../../.env', quiet: true })
 
 function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -18,16 +19,17 @@ module.exports = {
             if (key === "fixed_deposit" || key === "gameData") continue
 
             const listOfNames = dictionary[key]
-            const options = JSON.parse(process.env[`GAME_${key.toUpperCase()}`] || `{"max":1, "min":1}`)
+            const options = {
+                "max": Number(process.env[`GAME_${key.toUpperCase()}_MAX`]),
+                "min": Number(process.env[`GAME_${key.toUpperCase()}_MIN`])
+            }
 
             if (!(key in seed)) seed[key] = {}
 
             const count = randomIntFromInterval(options.max, options.min)
             while (Object.keys(seed[key]).length < count) {
                 const randomName = listOfNames[Math.floor(Math.random() * listOfNames.length)] // Returns name of item from table
-                if (randomName in seed[key]) {
-                    continue
-                } // If the name is already in table, then skip
+                if (randomName in seed[key]) continue // If the name is already in table, then skip
                 seed[key][randomName] = await database.getFirstDate(key, randomName)
             }
         }
@@ -40,6 +42,8 @@ module.exports = {
             "playtime": playtime*12,
             "seed": seed
         })
+
+        console.log(seed)
 
         // Send to players how many stocks will be at beginning of the game
         stocksAtTheBeginning = []

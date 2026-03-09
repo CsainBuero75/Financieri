@@ -1,6 +1,5 @@
 const { sendRequestToPlayers } = require("../websocket_modules/roomManager.js")
-const { CanvasRenderService: CRS } = require('chartjs-node-canvas');
-require('dotenv').config({ path: '../../.env', quiet: true })
+const { format } = require("../formatter.js")
 
 module.exports = {
     tick: async function (database, Room) {
@@ -17,11 +16,7 @@ module.exports = {
 
             let list = []
             dictionary[Table].forEach(element => {
-                if (
-                    Table === "fixed_deposit"
-                    || Table === "gameData"
-                    || element in Room.Seed.seed[Table]
-                ) list.push(element)
+                if (Table === "fixed_deposit" || Table === "gameData" || element in Room.Seed.seed[Table]) list.push(element)
             }); // Push into list just elements that the room has in seed
 
             const values = await database.getValues(
@@ -32,30 +27,30 @@ module.exports = {
             if (!values || !values[0] || !values[0][0]) {
                 format({
                     "errorCode": "500",
-                    "message": `Database could not fetch data! Request: ${year}-${month.toString().padStart(2, "0")} | ${Table} | ${list} | ${values}`,
+                    "message": `Database could not fetch data! Request: ${year}-${month.toString().padStart(2, "0")} | ${Table} | ${JSON.stringify(list)} | ${values}`,
                     "protocol": "SQL"
-                })
+                });
                 return
             }
 
-            const PDT = Room.PastDataStorage
+            const PDT = Room.PastDataStorage;
             for (const Key of Object.keys(values[0][0])) {
-                if (!values[0][0][Key]) continue
-                if (!("others" in seed["values"])) seed["values"]["others"] = {}
+                if (!values[0][0][Key]) continue;
+                if (!("others" in seed["values"])) seed["values"]["others"] = {};
 
                 if (Table === "gameData") {
-                    seed["values"]["others"][Key] = values[0][0][Key]
+                    seed["values"]["others"][Key] = Math.round(values[0][0][Key] * 100) / 100;
                 } else {
-                    seed["values"][Table][Key] = values[0][0][Key]
+                    seed["values"][Table][Key] = Math.round(values[0][0][Key]  * 100) / 100;
                 }
             }
         }
 
         // Deleting data, which clients should not have access to
-        delete seed["startDate"]
-        delete seed["year"]
-        delete seed["month"]
-        delete seed["seed"]
+        delete seed["startDate"];
+        delete seed["year"];
+        delete seed["month"];
+        delete seed["seed"];
 
         sendRequestToPlayers(Room, {
             "type": "game",

@@ -5,7 +5,7 @@ const {format} = require("../formatter.js")
 module.exports.createUnsecuredServer = function (app) {
     try {
         const server = http.createServer(app);
-        server.listen(process.env.PORT_HTTP, process.env.ADDRESS)
+        server.listen(process.env.WEBSERVER_HTTP, process.env.WEBSERVER_ADDRESS)
 
         format({
             "protocol": "HTTP",

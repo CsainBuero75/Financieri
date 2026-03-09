@@ -1,7 +1,7 @@
 export class WebSocketController {
     constructor() {
         this.websocket = null
-        this.host = false
+        this.isHost = false
         this.EventEmitterEvents = {}
     }
 
@@ -14,18 +14,7 @@ export class WebSocketController {
 
     emit(name, ...params) {
         const listeners = this.EventEmitterEvents[name] || []
-        listeners.forEach((listener) => {
-            console.log("Captured emit!")
-            listener(...params)
-        })
-    }
-
-    setHost(bool) {
-        this.host = bool
-    }
-
-    get isHost() {
-        return this.host
+        listeners.forEach((listener) => listener(...params))
     }
 
     establishConnection(protocol, address, port) {
@@ -79,9 +68,6 @@ export class WebSocketController {
     // everytime a client has recieved a request from server, this function fires
     onMessage(message) {
         const request = JSON.parse(message.data);
-        console.log("RECIEVED : " + JSON.stringify(request, "null", "\t"))
-
-        console.log("EMITTING: " + `${request.type}-${request.subtype}`)
         this.emit(
             `${request.type}-${request.subtype}`, // room-create
             request.data // Sends just the data of the request.
@@ -102,7 +88,6 @@ export class WebSocketController {
                 throw new Error(`Data of request aren't defined!`)
             }
 
-            console.log(`SENDING : ${JSON.stringify(request)}`)
             this.websocket.send(JSON.stringify(request))
         } catch (error) {
             console.error("Failed to sent a request!", error)

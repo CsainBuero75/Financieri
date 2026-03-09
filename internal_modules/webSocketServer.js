@@ -1,5 +1,4 @@
 const { format } = require("./formatter.js")
-//const { newConnection } = require("./websocket_modules/clientManager.js")
 const { v4: uuidv4 } = require('uuid');
 
 // WebSocketServer Modules
@@ -19,14 +18,12 @@ module.exports.createWebsocketServer = function () {
         // Set up websocket, to have userId and userData
         websocket.userId = uuidv4();
 
-        //const userId = newConnection(websocket) 
-
         isAlive(websocket) // Check in intervals to make sure the websocket won't be kept in memory after unknown client fail
-        errorHandler(websocket) // Handles websocket errors
-        onMessage(websocket) // Handles requests and responds
-        onClose(websocket) // Handles closing websockets
+        errorHandler(websocket)
+        onMessage(websocket) // Handles requests and responds to them
+        onClose(websocket)
 
-        // Every time a new websocket connection is esabilised, it's a upgrade from HTTPS
+        // Every time a new websocket connection is established, it's a upgrade from HTTPS
         format({
             "sender": "CLIENT",
             "protocol": "WS",

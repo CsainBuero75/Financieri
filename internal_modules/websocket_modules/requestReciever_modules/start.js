@@ -5,7 +5,7 @@ const {format} = require("../../formatter.js")
 require('dotenv').config({ path: '../../../.env', quiet: true })
 
 const { DatabaseObject } = require("../../game_modules/database.js")
-const database = new DatabaseObject(process.env.USERNAME, process.env.PASSWORD)
+const database = new DatabaseObject(process.env.MYSQL_DATABASE, process.env.MYSQL_USERNAME, process.env.MYSQL_PASSWORD)
 
 const { Room : RoomObject } = require("../roomManager_modules/roomObject.js")
 const { deleteRoom } = require("../roomManager.js")
