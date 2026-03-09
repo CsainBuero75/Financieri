@@ -8,10 +8,11 @@
 ---
 
 ## Description:
-Created for competetion Finančný Štvorboj by Národná banka Slovenska.
-Uses node.js for back-end, html5, tailwindCSS and javascript for front-end.
-Game is unfinnished, some features missing, expect bugs and glitches.
-Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfinanz Slovensko a.s..
+* Created for competetion Finančný Štvorboj by Národná banka Slovenska.
+* Back-end: Node.js with `mySQL2`
+* Front-end: Vanilla javasript, HTML, TailWindCSS, Chart.js.
+* Game is unfinished, expect bugs, glitches and missing features.
+* Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfinanz Slovensko a.s..
 
 ### Kinds of savings, investments and insurances?
 * II. Pillar and III. Pillar, data from [Sociálna poisťovňa](https://www.socpoist.sk/socialne-poistenie/platenie-poistneho/sporenie-v-ii-pilieri/zakladne-informacie-ii-pilier), [II. Pillar - NN Slovensko](https://www.nn.sk/druhy-pilier/) and [III. Pillar - NN Slovesnko](https://www.nn.sk/treti-pilier/)
@@ -27,7 +28,7 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 ## How to play?
 (Tested only on Debian 13, so you might need to find your way)
 
-1. Instal mySQL and Node.js
+1. Instal mySQL community edition and Node.js
 2. Create user with password on mySQL. Replace {username}, {password}, {database} and {path/to/database} with your strings.
    ```
    mysql -u root -p
@@ -61,6 +62,7 @@ Inspired by games 'Build your Stax' by NGPF, 'Finančná sloboda' by OVB Allfina
 * Any contributions are welcomed!
 * Check contributing file thingy (when I create it :p)
 * If you want to report issues, please share screenshots from browser console and server!
+
 
 
 
